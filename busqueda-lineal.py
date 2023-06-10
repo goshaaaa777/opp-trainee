@@ -19,7 +19,6 @@ for i in range(len(lista)):
     print("[%d] => [%d]"%(i, lista[i]))
 
 
-
 print(buscar(100))
 
 
