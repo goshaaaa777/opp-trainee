@@ -24,20 +24,34 @@ print(resultado)
 
 ############################# FUNCIÓN CON PARÁMETROS CON VALORES POR DEFECTO #####################################
 
-def sacar_dinero(cuenta_bancaria : int, dinero_a_retirar : int = 20):
-    return cuenta_bancaria - dinero_a_retirar
+def sacar_dinero(saldo_cuenta : int, dinero_a_retirar : int = 20):
+    return saldo_cuenta - dinero_a_retirar
 
+saldo : int = 5000
+saldo_restante : int = sacar_dinero(saldo)
+print(saldo_restante)
+print(f"Su saldo restante es {saldo_restante}")
 
 ############################# FUNCIÓN CON PARÁMETROS OPCIONALES #####################################
 
 # En los parametros opcionales no hace falta definir que tipo de datos tienen porque internamente python los va a meter en tuplas. Los toppings que
 # le pasemos en la función van a ser metidos en una tupla internamente.
 
+def crear_pizza(tipo_pizza: str, *toppings_ext) -> str:
+    tipos_pizza : list = ['Margarita','Cuatro Quesos','Barbacoa']
+    frase_respuesta : str = ""
 
+    if tipo_pizza in tipos_pizza and not toppings_ext:
+        frase_respuesta = f"Tu pizza {tipo_pizza} se esta procesando, vuelve en 10 minutos. No tiene toppings"
+    elif tipo_pizza in tipos_pizza and toppings_ext:
+        frase_respuesta = f"Tu pizza {tipo_pizza} con los toppings {str(toppings_ext)} se esta procesando, vuelve en 10 minutos"
+    else:
+        frase_respuesta = f"Tu tipo de pizza {tipo_pizza} no està en nuestro menù, lo sentimos mucho"
+    return frase_respuesta
 
-# Salchicha y pimiento rojo son parámetros opcionales.
-
-
+respuesta : str = crear_pizza('Margarita')
+respuesta1 : str = crear_pizza('Barbacoa','Salchicha')
+print(respuesta1)
 
 ############################# FUNCIÓN CON PARÁMETROS KEY-VALUE #####################################
 
@@ -45,15 +59,28 @@ def sacar_dinero(cuenta_bancaria : int, dinero_a_retirar : int = 20):
 # En este caso queremos crear un perfil de usuario que tenga como obligatorio poner el nombre y apellidos y la demás información de forma opcional.
 
 
+def crear_perfil_usuario(nombre : str, apellidos :str, **kwargs) -> str:
+    perfil : str = f"****** INFORMACIÒN DEL USUARIO {nombre} {apellidos} ******"
+    for key,value in kwargs.items():
+        perfil = f"{perfil} \n {key} : {value}"
+    return perfil
 
+perfil1 : str = crear_perfil_usuario('Isaias','Capistrano Huamani')
+perfil2 : str = crear_perfil_usuario('Isaias','Capistrano Huamani', Ciudad='Callao',Pais='Perù', Comida_favorita='Ceviche')
 
+print(perfil2)
 ############################# FUNCIÓNES QUE TIENEN COMO PARÁMETROS FUNCIONES #####################################
 
 # Todo en Python son objetos hasta las funciones por eso podemos pasar una función como parámetro a otra función.
 # En este ejemplo hacemos una función que reciba que tipo de operación tiene que hacer sobre dos números, está operación se define como una función.
 
+def dos_elementos(lista:list) -> str:
+    if len(lista) >= 2:
+        return lista[0], lista[1]
+    return "",""
 
-
+nombres : list = ['Juan','Pepe','Jorge']
+nombre1, nombre2 = dos_elementos(nombres)
 
 ############################# FUNCIÓNES QUE DEVUELVE MÁS DE UN VALOR #####################################
 
